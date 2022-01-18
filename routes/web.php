@@ -13,8 +13,11 @@ use App\Http\Controllers\TodoController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//トップページの表示
 Route::get('/', [TodoController::class, 'index']);
+//タスクの作成
 Route::post('/todo/create', [TodoController::class, 'create']);
-Route::post('/todo/update', [TodoController::class, 'update']);
-Route::post('/todo/delete', [TodoController::class, 'delete']);
+//タスクの更新
+Route::post('/todo/update/{id}', [TodoController::class, 'update'])->name('update');
+//タスクの削除
+Route::post('/todo/delete/{id}', [TodoController::class, 'delete'])->name('delete');

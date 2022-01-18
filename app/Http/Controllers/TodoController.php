@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ClientRequest;
 use App\Models\Todolist;
 
 class TodoController extends Controller
@@ -13,26 +14,24 @@ class TodoController extends Controller
         return view('index', ['items' => $items]);
     }
 
-    public function create(Request $request)
+    public function create(TodoRequest $request)
     {
-        $this->validate($request, Todolist::$rules);
         $form = $request->all();
         Todolist::create($form);
         return redirect('/');
     }
 
-    public function update(Request $request)
+    public function update(TodoRequest $request, $id)
     {
-        $this->validate($request, Todolist::$rules);
         $form = $request->all();
         unset($form['_token']);
-        Todolist::where('id', $request->id)->update($form);
+        Todolist::where('id', $id)->update($form);
         return redirect('/');
     }
 
-    public function delete(Request $request)
+    public function delete($id)
     {
-        Todolist::find($request->id)->delete();
+        Todolist::find($id)->delete();
         return redirect('/');
     }
 }

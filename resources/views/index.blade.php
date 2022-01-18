@@ -303,19 +303,17 @@
                     </tr>
                     @foreach($items as $item)
                     <tr>
-                        <form action="/todo/update" method="post">
+                        <form action="{{ route('update', ['id' => $item->id ]) }}" method="post">
                             @csrf
                             <td>{{$item->created_at}}</td>
                             <td><input type="text" name="content" value="{{$item->content}}" class="input-update"></td>
                             <td>
-                                    <input type="hidden" name="id" value="{{$item->id}}">
-                                    <button class="btn-update">更新</button>
+                                <button class="btn-update">更新</button>
                             </td>
                         </form>
                         <td>
-                            <form action="/todo/delete" method="post">
+                            <form action="{{ route('delete', ['id' => $item->id ]) }}" method="post">
                                 @csrf
-                                <input type="hidden" name="id" value="{{$item->id}}">
                                 <button class="btn-delete">削除</button>
                             </form>
                         </td>
